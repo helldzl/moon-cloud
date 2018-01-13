@@ -14,6 +14,7 @@
         <module>moon-provider-user</module>
         <module>moon-provider-movie</module>
         <module>moon-eureka-server-ha</module>
+        <module>moon-gateway-zuul</module>
     </modules>
 
     <parent>
