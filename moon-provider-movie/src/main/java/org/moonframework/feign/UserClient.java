@@ -1,15 +1,43 @@
 package org.moonframework.feign;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.moonframework.entity.User;
-import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@FeignClient(name = "microservice-provider-user")
-public interface UserClient {
+/**
+ * @author quzile
+ * @version 1.0
+ * @since 2018/1/13
+ */
+public class UserClient {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    User findById(@PathVariable("id") Long id);
+    @Autowired
+    private UserFeignClient userFeignClient;
+
+    @HystrixCommand(
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500"),
+                    @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE")
+            },
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "30"),
+                    @HystrixProperty(name = "maxQueueSize", value = "101"),
+                    @HystrixProperty(name = "keepAliveTimeMinutes", value = "2"),
+                    @HystrixProperty(name = "queueSizeRejectionThreshold", value = "15"),
+                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "12"),
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1440")
+            },
+            fallbackMethod = "findByIdFallback")
+    public User findById(Long id) {
+        return userFeignClient.findById(id);
+    }
+
+    public User findByIdFallback(Long id) {
+        User user = new User();
+        user.setId(-1L);
+        user.setName("默认用户");
+        return user;
+    }
 
 }

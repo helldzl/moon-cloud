@@ -3,9 +3,23 @@ server:
 spring:
   application:
     name: microservice-consumer-movie
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://mifan:Mifan2017!@peer1:8761/eureka/,http://mifan:Mifan2017!@peer2:8762/eureka/
   instance:
     prefer-ip-address: true
+
+# To disable Hystrix in Feign
+feign:
+  hystrix:
+    enabled: true
+
+# To set thread isolation to SEMAPHORE
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
