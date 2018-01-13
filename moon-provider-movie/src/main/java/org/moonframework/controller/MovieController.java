@@ -1,5 +1,6 @@
 package org.moonframework.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.moonframework.entity.User;
 import org.moonframework.feign.UserClient;
 import org.slf4j.Logger;
@@ -36,9 +37,23 @@ public class MovieController {
     @Autowired
     private UserClient userClient;
 
+    /**
+     * <p>断路器的状态监控</p>
+     *
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "findByIdFallback")
     @GetMapping("/user/{id}")
     public User findById(@PathVariable Long id) {
         return this.userClient.findById(id);
+    }
+
+    public User findByIdFallback(Long id) {
+        User user = new User();
+        user.setId(-1L);
+        user.setName("默认用户");
+        return user;
     }
 
 }

@@ -24,6 +24,13 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <!-- Applications can use the Hystrix Circuit Breaker provided by the Spring Cloud Netflix project by including this starter in the projects pom.xml: spring-cloud-starter-hystrix. Hystrix doesn’t depend on the Netflix Discovery Client. -->
+        <!-- To include Hystrix in your project use the starter with group org.springframework.cloud and artifact id spring-cloud-starter-netflix-hystrix. -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
