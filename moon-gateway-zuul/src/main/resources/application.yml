@@ -11,3 +11,33 @@ eureka:
       defaultZone: http://mifan:Mifan2017!@peer1:8761/eureka/,http://mifan:Mifan2017!@peer2:8762/eureka/
   instance:
     prefer-ip-address: true
+
+zuul:
+  ignoredPatterns: /**/admin/**
+  routes:
+    route-user:
+      path: /user/**
+      serviceId: microservice-provider-user
+      sensitiveHeaders:
+    route-movie:
+      path: /movie/**
+      serviceId: microservice-consumer-movie
+      sensitiveHeaders:
+
+# com.netflix.hystrix.HystrixCommandProperties
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+    microservice-consumer-movie:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000

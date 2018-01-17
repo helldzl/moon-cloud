@@ -1,7 +1,6 @@
 package org.moonframework.controller;
 
 import org.moonframework.entity.User;
-import org.moonframework.feign.UserClient;
 import org.moonframework.feign.UserFeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class MovieController {
@@ -39,7 +40,15 @@ public class MovieController {
 
     @GetMapping("/user/{id}")
     public User findById(@PathVariable Long id) {
-        return this.userFeignClient.findById(id);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+            System.out.println("SLEEP");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        User user = this.userFeignClient.findById(id);
+        System.out.println(user);
+        return user;
     }
 
 }
