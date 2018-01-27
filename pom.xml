@@ -11,10 +11,11 @@
 
     <modules>
         <module>moon-eureka-server</module>
+        <module>moon-eureka-server-ha</module>
         <module>moon-provider-user</module>
         <module>moon-provider-movie</module>
-        <module>moon-eureka-server-ha</module>
         <module>moon-gateway-zuul</module>
+        <module>moon-config-server</module>
     </modules>
 
     <parent>

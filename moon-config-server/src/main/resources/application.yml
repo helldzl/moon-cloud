@@ -1,0 +1,52 @@
+########################################################
+### EMBEDDED SERVER CONFIGURATION (ServerProperties) ###
+########################################################
+server:
+  port: 8887
+  session:
+    timeout: 28800
+
+##############
+### SPRING ###
+##############
+spring:
+  application:
+    name: micro-service-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri:
+  output:
+    ansi:
+      enabled: always
+
+###########################
+### SECURITY PROPERTIES ###
+###########################
+security:
+  basic:
+    enabled: true
+  user:
+    name: mifan
+    password: Mifan2017!
+
+###############
+### LOGGING ###
+###############
+logging:
+  level:
+    root: INFO
+
+##############
+### EUREKA ###
+##############
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://mifan:Mifan2017!@${eureka.instance.hostname}:${server.port}/eureka/
