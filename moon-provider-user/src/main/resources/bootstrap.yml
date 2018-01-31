@@ -1,0 +1,12 @@
+spring:
+  application:
+    # 对应config server获取配置文件的{application}
+    name: micro-service-foo
+  cloud:
+    config:
+      # 默认是localhost:8888
+      uri: http://localhost:8887
+      # 对应config server获取配置文件的{profile}
+      profile: dev
+      # 对应config server获取配置文件的{label}
+      label: master

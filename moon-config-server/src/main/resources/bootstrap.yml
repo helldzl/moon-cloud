@@ -1,0 +1,8 @@
+### To configure an asymmetric key you can either set the key as a PEM-encoded text value (in encrypt.key), or via a keystore (e.g. as created by the keytool utility that comes with the JDK). The keystore properties are encrypt.keyStore.*.
+encrypt:
+  key: b2baa944-0f36-4b90-bfba-880ffae59eb4
+#  keyStore:
+#    location: classpath:/server.jks
+#    password: letmein
+#    alias: mytestkey
+#    secret: changeme

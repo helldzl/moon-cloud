@@ -13,10 +13,27 @@ spring:
   application:
     name: micro-service-config-server
   cloud:
+    bus:
+      trace:
+        enabled: true
     config:
       server:
         git:
-          uri:
+          uri: https://github.com/helldzl/spring-cloud-config-repo
+          username:
+          password:
+          clone-on-start: false
+          search-paths: '{application}'
+        health:
+          repositories:
+            myservice:
+              label: master
+              name: aa
+  rabbitmq:
+    host: 192.168.1.138
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
   output:
     ansi:
       enabled: always
@@ -37,16 +54,18 @@ security:
 logging:
   level:
     root: INFO
+    org.springframework.cloud: INFO
+    org.springframework.boot: INFO
 
 ##############
 ### EUREKA ###
 ##############
-eureka:
-  instance:
-    hostname: localhost
-    prefer-ip-address: true
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url:
-      defaultZone: http://mifan:Mifan2017!@${eureka.instance.hostname}:${server.port}/eureka/
+#eureka:
+#  instance:
+#    hostname: localhost
+#    prefer-ip-address: true
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#      defaultZone: http://mifan:Mifan2017!@${eureka.instance.hostname}:${server.port}/eureka/
