@@ -16,6 +16,7 @@
         <module>moon-provider-movie</module>
         <module>moon-gateway-zuul</module>
         <module>moon-config-server</module>
+        <module>moon-zipkin-server</module>
     </modules>
 
     <parent>
