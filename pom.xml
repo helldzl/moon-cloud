@@ -17,6 +17,7 @@
         <module>moon-gateway-zuul</module>
         <module>moon-config-server</module>
         <module>moon-zipkin-server</module>
+        <module>moon-rxjava</module>
     </modules>
 
     <parent>
