@@ -56,16 +56,18 @@ public class HeapSort {
     }
 
     private static boolean test() {
-        int[] array = new int[9];
+        int[] array = new int[20];
         for (int i = 0; i < array.length; i++) {
             array[i] = (int) (Math.random() * 100);
         }
         int[] origin = Arrays.copyOf(array, array.length);
 
+        long start = System.nanoTime();
         HeapSort.sort(array);
-        System.out.println("success");
-        //print(origin);
-        //print(array);
+        long end = System.nanoTime();
+        System.out.println("success in " + (end - start));
+        print(origin);
+        print(array);
 
         boolean valid = true;
         for (int i = 0; i < array.length - 1; i++) {
