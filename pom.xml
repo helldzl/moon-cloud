@@ -18,6 +18,7 @@
         <module>moon-config-server</module>
         <module>moon-zipkin-server</module>
         <module>moon-rxjava</module>
+        <module>moon-programmer</module>
     </modules>
 
     <parent>
