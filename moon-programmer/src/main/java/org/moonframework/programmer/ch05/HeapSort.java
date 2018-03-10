@@ -1,5 +1,7 @@
 package org.moonframework.programmer.ch05;
 
+import java.util.Arrays;
+
 /**
  * @author quzile
  * @version 1.0
@@ -13,7 +15,7 @@ public class HeapSort {
      *
      * @param array
      */
-    public static int[] sort(int[] array) {
+    public static void sort(int[] array) {
         int tail = array.length - 1;
         for (int i = (tail - 1) / 2; i >= 0; i--) {
             adjust(array, i, tail);
@@ -23,10 +25,9 @@ public class HeapSort {
             swap(array, 0, i);
             adjust(array, 0, i - 1);
         }
-        return array;
     }
 
-    public static void adjust(int[] array, int x, int y) {
+    private static void adjust(int[] array, int x, int y) {
         int temp = array[x];
         for (int index = 2 * x + 1; index <= y; index = 2 * index + 1) {
             if (index < y && array[index] < array[index + 1])
@@ -41,16 +42,46 @@ public class HeapSort {
         array[x] = temp;
     }
 
-    public static void swap(int[] array, int head, int tail) {
+    private static void swap(int[] array, int head, int tail) {
         int temp = array[head];
         array[head] = array[tail];
         array[tail] = temp;
     }
 
+    private static void print(int[] array) {
+        System.out.println();
+        for (int i : array) {
+            System.out.printf("%d \t", i);
+        }
+    }
+
+    private static boolean test() {
+        int[] array = new int[9];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) (Math.random() * 100);
+        }
+        int[] origin = Arrays.copyOf(array, array.length);
+
+        HeapSort.sort(array);
+        System.out.println("success");
+        //print(origin);
+        //print(array);
+
+        boolean valid = true;
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                valid = false;
+                print(origin);
+                print(array);
+                break;
+            }
+        }
+        return valid;
+    }
+
     public static void main(String[] args) {
-        int[] result = HeapSort.sort(new int[]{23, 45, 12, 67, 55, 48, 98, 34, 24, 78});
-        for (int i : result) {
-            System.out.println(i);
+        while (test()) {
+
         }
     }
 
