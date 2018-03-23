@@ -37,6 +37,35 @@ public class StringTest {
         return next;
     }
 
+    public static int[] nextVal(String s) {
+        int[] next = new int[s.length()];
+
+        int i = 0;
+        int j = -1;
+        next[0] = -1;
+        while (i < next.length - 1) {
+            debug(i);
+
+            if (j == -1 || s.charAt(i) == s.charAt(j)) {
+                // s.charAt(i) 表示后缀单个字符
+                // s.charAt(j) 表示前缀单个字符
+                ++i;
+                ++j;
+
+                if (s.charAt(i) != s.charAt(j)) {
+                    next[i] = j;
+                } else {
+                    next[i] = next[j];
+                }
+            } else {
+                // j值回溯
+                j = next[j];
+            }
+        }
+
+        return next;
+    }
+
     public static int indexOf(String source, String target) {
         int i = 0;  // 主串当前下标值
         int j = 0;  // 子串当前下标值
@@ -64,7 +93,14 @@ public class StringTest {
     }
 
     public static void main(String[] args) {
-        for (int next : next("abcabxxe")) {
+        String s = "aaaaax";
+        for (int next : next(s)) {
+            System.out.print(next);
+        }
+
+        System.out.println();
+
+        for (int next : nextVal(s)) {
             System.out.print(next);
         }
 
